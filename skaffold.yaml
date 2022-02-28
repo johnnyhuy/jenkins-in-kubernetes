@@ -1,0 +1,21 @@
+apiVersion: skaffold/v2beta27
+kind: Config
+metadata:
+  name: jenkins
+profiles:
+  - name: local
+    activation:
+      - kubeContext: minikube
+    build:
+      tagPolicy:
+        gitCommit:
+          ignoreChanges: false
+      artifacts:
+      - image: johnnyhuy/jenkins
+        context: .
+        docker:
+          dockerfile: Dockerfile
+    deploy:
+      kustomize:
+        paths:
+          - overlays/local
