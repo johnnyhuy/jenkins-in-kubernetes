@@ -13,7 +13,6 @@ profiles:
         docker:
           dockerfile: Dockerfile
     deploy:
-      statusCheck: false
       kustomize:
         paths:
           - overlays/local

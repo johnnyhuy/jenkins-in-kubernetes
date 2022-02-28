@@ -1,1 +1,2 @@
 kubernetes:1.30.6
+configuration-as-code:1.55.1

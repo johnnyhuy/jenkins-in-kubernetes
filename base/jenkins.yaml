@@ -71,19 +71,24 @@ spec:
             - containerPort: 50000
           resources:
             limits:
-              cpu: 3
-              memory: 3Gi
-            requests:
-              cpu: 2
+              cpu: '3'
               memory: 2Gi
+            requests:
+              cpu: '2'
+              memory: 1Gi
           env:
-            - name: LIMITS_MEMORY
+            - name: MEMORY_LIMITS
+              valueFrom:
+                resourceFieldRef:
+                  resource: limits.memory
+                  divisor: 1Mi
+            - name: MEMORY_REQUESTS
               valueFrom:
                 resourceFieldRef:
                   resource: requests.memory
                   divisor: 1Mi
             - name: JAVA_OPTS
-              value: -Xmx$(LIMITS_MEMORY)m -XshowSettings:vm -Dhudson.slaves.NodeProvisioner.initialDelay=0 -Dhudson.slaves.NodeProvisioner.MARGIN=50 -Dhudson.slaves.NodeProvisioner.MARGIN0=0.85 -Djenkins.install.runSetupWizard=false
+              value: -Xms$(MEMORY_REQUESTS)m -Xmx$(MEMORY_LIMITS)m -Djenkins.install.runSetupWizard=false
           # livenessProbe:
           #   httpGet:
           #     path: /login
