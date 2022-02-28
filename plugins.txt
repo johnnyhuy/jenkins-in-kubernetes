@@ -1,14 +1,1 @@
-ace-editor:1.1
-ansicolor:1.0.0
-ant:1.13
-audit-trail:3.10
-basic-branch-build-strategies:1.3.2
-blueocean:1.24.8
-branch-api:2.6.2
-credentials:2.6.1
-git-client:3.9.0
-git-server:1.9
-git:4.8.3
-ldap:1.26
 kubernetes:1.30.6
-simple-theme-plugin:103.va_161d09c38c7

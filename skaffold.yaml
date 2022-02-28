@@ -7,15 +7,18 @@ profiles:
     activation:
       - kubeContext: minikube
     build:
-      tagPolicy:
-        gitCommit:
-          ignoreChanges: false
       artifacts:
       - image: johnnyhuy/jenkins
         context: .
         docker:
           dockerfile: Dockerfile
     deploy:
+      statusCheck: false
       kustomize:
         paths:
           - overlays/local
+    portForward:
+      - resourceType: service
+        resourceName: jenkins
+        namespace: default
+        port: 8080
