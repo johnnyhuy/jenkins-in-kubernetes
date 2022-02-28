@@ -75,7 +75,7 @@ spec:
               memory: 2Gi
             requests:
               cpu: '2'
-              memory: 1Gi
+              memory: 1.5Gi
           env:
             - name: MEMORY_LIMITS
               valueFrom:
@@ -88,7 +88,9 @@ spec:
                   resource: requests.memory
                   divisor: 1Mi
             - name: JAVA_OPTS
-              value: -Xms$(MEMORY_REQUESTS)m -Xmx$(MEMORY_LIMITS)m -Djenkins.install.runSetupWizard=false
+              value: -Xms$(MEMORY_REQUESTS)m -Xmx$(MEMORY_LIMITS)m -Djenkins.install.runSetupWizard=false -Djava.util.logging.config.file/var/jenkins_home/logging/jenkins-logging.properties
+            - name: CASC_JENKINS_CONFIG
+              value: /var/jenkins_home/casc_configs
           # livenessProbe:
           #   httpGet:
           #     path: /login
@@ -103,6 +105,13 @@ spec:
             initialDelaySeconds: 60
             timeoutSeconds: 5
             failureThreshold: 12
+          volumeMounts:
+            - mountPath: /var/jenkins_home/logging
+              name: jenkins-logging
+      volumes:
+        - name: jenkins-logging
+          configMap:
+            name: jenkins-logging
 
 ---
 apiVersion: v1
