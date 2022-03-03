@@ -1,13 +1,13 @@
 {
     "configurations": [
         {
-            "name": "Kubernetes: Run/Debug",
+            "name": "skaffold dev",
             "type": "cloudcode.kubernetes",
             "request": "launch",
             "skaffoldConfig": "${workspaceFolder}/skaffold.yaml",
             "watch": true,
             "cleanUp": true,
-            "portForward": true,
+            "portForward": true
         }
     ]
 }
