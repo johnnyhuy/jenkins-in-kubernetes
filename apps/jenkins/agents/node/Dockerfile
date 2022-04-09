@@ -1,6 +1,8 @@
 FROM jenkins/inbound-agent:jdk17-preview as jnlp
 
-FROM --platform=linux/amd64 node:16-alpine
+# Using Alpine here is broken
+# since Java is tricky to copy over from jenkins/inbound-agent
+FROM node:16-bullseye
 
 ENV JAVA_HOME=/opt/java/openjdk
 ENV PATH "${JAVA_HOME}/bin:${PATH}"
@@ -11,5 +13,6 @@ COPY --from=jnlp /usr/share/jenkins/agent.jar /usr/share/jenkins/agent.jar
 ENTRYPOINT ["/usr/local/bin/jenkins-agent"]
 
 ARG USER=jenkins
-RUN addgroup -S $USER && adduser -S $USER -G $USER
+RUN useradd -c "Jenkins user" -m $USER \
+    && chmod 750 /home/$USER
 USER $USER
