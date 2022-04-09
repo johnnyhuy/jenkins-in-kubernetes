@@ -4,22 +4,28 @@
 
 ## Getting started
 
-
 ```bash
 # Install a required tooling
 brew bundle
 
 # Startup Kubernetes cluster
-minikube start
+make local-cluster
 
-# (optional) Deploy Kubernetes specific apps
-kubectl apply -k kube-apps
+# Deploy everything and watch for changes
+make dev
 
-# Deploy Jenkins and watch for changes
-skaffold dev
+# Fire and forget deployment
+make deploy
 ```
 
-Access Jenkins through [`localhost:8080`](http://localhost:8080)
+### Access
+
+```bash
+# Create a Minikube tunnel since we've exposed ports to certain services
+make tunnel
+```
+
+Jenkins - [`localhost:8080`](http://localhost:8080)
 
 ## Findings
 
