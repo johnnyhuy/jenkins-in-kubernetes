@@ -8,7 +8,6 @@ jenkins:
 
   controller:
     imagePullPolicy: IfNotPresent
-    priorityClassName: jenkins-master
     JCasC:
       # Disabling because they're using jenkins.controller.tag to check for SemVer
       # which breaks Skaffold tagging policies since we're tagging with latest and SHA digests
