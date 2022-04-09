@@ -20,5 +20,7 @@ jenkins:
     installLatestPlugins: false
     installPlugins: false
   
-  # prometheus:
-  #   enabled: true
+  prometheus:
+    enabled: true
+
+  cascConfig: {}

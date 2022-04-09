@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: casc-config
+  namespace: {{ .Release.Namespace }}
+  labels:
+    jenkins-jenkins-config: "true"
+data:
+  casc-config.yaml: |-
+    {{- tpl (toYaml .Values.jenkins.cascConfig) . | nindent 4 }}

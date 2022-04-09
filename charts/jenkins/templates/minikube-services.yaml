@@ -2,18 +2,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: minikube-{{ template "jenkins.fullname" . }}
+  name: minikube-jenkins
   namespace: {{ .Release.Namespace }}
 spec:
   ports:
     - port: {{ .Values.jenkins.controller.servicePort }}
       name: http
       targetPort: {{ .Values.jenkins.controller.targetPort }}
-{{- range $index, $port := .Values.jenkins.controller.extraPorts }}
-    - port: {{ $port.port }}
-      name: {{ $port.name }}
-      targetPort: {{ $port.port }}
-{{- end }}
   selector:
     "app.kubernetes.io/component": "{{ .Values.jenkins.controller.componentName }}"
     "app.kubernetes.io/instance": "{{ .Release.Name }}"
