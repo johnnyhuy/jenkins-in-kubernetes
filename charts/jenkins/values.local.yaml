@@ -48,13 +48,11 @@ jenkins:
                 resourceLimitMemory: 512Mi
                 resourceRequestCpu: 512m
                 resourceRequestMemory: 512Mi
-                runAsUser: 
-                runAsGroup: 
                 ttyEnabled: false
                 workingDir: /home/jenkins/agent
               idleMinutes: 0
               instanceCap: 2147483647
-              label: "jenkins-jenkins-agent "
+              label: "default"
               nodeUsageMode: "NORMAL"
               podRetention: Never
               showRawYaml: true
