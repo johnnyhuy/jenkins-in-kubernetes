@@ -12,7 +12,7 @@ kube-prometheus-stack:
     enabled: true
     fullnameOverride: grafana
     serviceMonitor:
-      enabled: true
+      enabled: false
 
   kubeApiServer:
     enabled: false

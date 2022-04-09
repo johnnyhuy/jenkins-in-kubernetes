@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 jenkins/jenkins:2.263.4-lts
+FROM jenkins/jenkins:2.332.2-lts
 
 COPY plugins.txt /usr/share/jenkins/plugins.txt
 RUN jenkins-plugin-cli --verbose --plugin-file /usr/share/jenkins/plugins.txt

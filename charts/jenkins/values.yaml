@@ -2,6 +2,10 @@ minikube:
   enabled: false
 
 jenkins:
+  # Avoid debugging persistence issues, always start fresh from Config as Code
+  persistence:
+    enabled: false
+
   controller:
     imagePullPolicy: IfNotPresent
     JCasC:
@@ -15,3 +19,6 @@ jenkins:
     # https://github.com/jenkinsci/helm-charts/tree/main/charts/jenkins#consider-using-a-custom-image
     installLatestPlugins: false
     installPlugins: false
+  
+  # prometheus:
+  #   enabled: true

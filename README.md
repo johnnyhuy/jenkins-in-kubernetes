@@ -33,6 +33,12 @@ Prometheus - [`localhost:9090`](http://localhost:9090)
 
 ## Findings
 
+### Jenkins unstable on ARM
+
+If we're using Jenkins on ARM systems like M1 Macs, it's recommended to use ARM64 Docker images to avoid JVM crashes. Thankfully Jenkins have provided newer images with ARM support. However, older images like `jenkins/jenkins:2.263.4-lts` remain on AMD64.
+
+[GitHub issue](https://github.com/jenkinsci/docker/issues/941)
+
 ### Configuration as Code
 
 > Experienced Jenkins users rely on groovy init scripts to customize Jenkins and enforce the desired state. Those scripts directly invoke Jenkins API and, as such, can do everything (at your own risk). But they also require you to know Jenkins internals and are confident in writing groovy scripts on top of Jenkins API.
