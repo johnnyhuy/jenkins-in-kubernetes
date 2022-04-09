@@ -49,8 +49,13 @@ profiles:
       artifacts:
         - image: johnnyhuy/jenkins
           context: apps/jenkins
-          docker:
-            dockerfile: Dockerfile
+          docker: {}
+        - image: johnnyhuy/jenkins-node
+          context: apps/jenkins/agents/node
+          docker: {}
+        - image: johnnyhuy/jenkins-gradle
+          context: apps/jenkins/agents/gradle
+          docker: {}
     deploy:
       helm:
         releases:
