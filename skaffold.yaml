@@ -12,6 +12,8 @@ profiles:
           - name: kube-system
             chartPath: charts/kube-system
             namespace: kube-system
+            valuesFiles:
+              - charts/jenkins/values.local.yaml
 ---
 
 apiVersion: skaffold/v2beta27
@@ -29,6 +31,8 @@ profiles:
             chartPath: charts/chaos-testing
             namespace: chaos-testing
             createNamespace: true
+            valuesFiles:
+              - charts/jenkins/values.local.yaml
 ---
 
 apiVersion: skaffold/v2beta27
@@ -52,8 +56,12 @@ profiles:
         releases:
           - name: jenkins
             chartPath: charts/jenkins
-            namespace: default
-            artifactOverrides:
-              jenkins.controller.image: johnnyhuy/jenkins
+            namespace: jenkins
+            createNamespace: true
+            valuesFiles:
+              - charts/jenkins/values.local.yaml
+            setValueTemplates:
+              jenkins.controller.image: "{{ .IMAGE_NAME }}"
+              jenkins.controller.tag: "{{ .IMAGE_TAG }}"
             imageStrategy:
               helm: {}

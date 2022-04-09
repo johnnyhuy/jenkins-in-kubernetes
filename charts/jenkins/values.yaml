@@ -1,2 +1,17 @@
 minikube:
   enabled: false
+
+jenkins:
+  controller:
+    imagePullPolicy: IfNotPresent
+    JCasC:
+      # Disabling because they're using jenkins.controller.tag to check for SemVer
+      # which breaks Skaffold tagging policies since we're tagging with latest and SHA digests
+      # https://github.com/jenkinsci/helm-charts/blob/main/charts/jenkins/templates/_helpers.tpl#L118
+      defaultConfig: false
+    
+    # Disable Kubernetes from installing plugins since we install plugins on the Jenkins image
+    # Recommended by the Jenkins team to build our own Jenkins image
+    # https://github.com/jenkinsci/helm-charts/tree/main/charts/jenkins#consider-using-a-custom-image
+    installLatestPlugins: false
+    installPlugins: false

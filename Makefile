@@ -30,5 +30,8 @@ deploy-monitoring:
 deploy-chaos:
 	skaffold deploy -p $(ENV) -m chaos-testing
 
+render-jenkins:
+	skaffold build -p $(ENV) --dry-run -q | skaffold render -p $(ENV) -m jenkins --digest-source=local -a -
+
 tunnel:
 	minikube tunnel -c
