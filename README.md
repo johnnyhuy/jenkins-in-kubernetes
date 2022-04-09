@@ -1,6 +1,6 @@
 # Jenkins
 
-🤵🏼‍♂️ Jenkins on Kubernetes
+🤵🏼‍♂️ Jenkins on Kubernetes powered by Minikube. But examples here can apply beyond local cluster tools.
 
 ## Getting started
 
