@@ -1,0 +1,62 @@
+minikube:
+  enabled: false
+
+kube-prometheus-stack:
+  fullnameOverride: prometheus
+  alertmanager:
+    enabled: true
+    alertmanagerSpec:
+      fullnameOverride: alertmanager
+
+  grafana:
+    enabled: true
+    fullnameOverride: grafana
+    serviceMonitor:
+      enabled: true
+
+  kubeApiServer:
+    enabled: false
+
+  kubelet:
+    enabled: true
+
+  kubeControllerManager:
+    enabled: false
+
+  coreDns:
+    enabled: false
+
+  kubeDns:
+    enabled: false
+
+  kubeEtcd:
+    enabled: false
+
+  kubeScheduler:
+    enabled: false
+
+  kubeProxy:
+    enabled: false
+
+  kubeStateMetrics:
+    enabled: true
+
+  kube-state-metrics:
+    fullnameOverride: kube-state-metrics
+
+  nodeExporter:
+    enabled: true
+
+  prometheus-node-exporter:
+    fullnameOverride: node-exporter
+
+  prometheusOperator:
+    serviceMonitor:
+      selfMonitor: false
+
+  prometheus:
+    serviceMonitor:
+      selfMonitor: false
+    prometheusSpec:
+      serviceMonitorSelectorNilUsesHelmValues: false
+  

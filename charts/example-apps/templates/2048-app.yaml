@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: minikube-2048-app
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 8081
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    kubernetes.io/name: 2048-app
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: 2048-app
+spec:
+  ports:
+    - port: 8081
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    kubernetes.io/name: 2048-app
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: 2048-app
+spec:
+  replicas: {{ .Values.backend.replicas }}
+  selector:
+    matchLabels:
+      kubernetes.io/name: 2048-app
+  template:
+    metadata:
+      labels:
+        kubernetes.io/name: 2048-app
+    spec:
+      containers:
+        - name: 2048-app
+          image: "{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8081
+              protocol: TCP

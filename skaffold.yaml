@@ -1,4 +1,37 @@
-apiVersion: skaffold/v2beta23
+apiVersion: skaffold/v2beta27
+kind: Config
+metadata:
+  name: kube-system
+profiles:
+  - name: local
+    activation:
+      - kubeContext: minikube
+    deploy:
+      helm:
+        releases:
+          - name: kube-system
+            chartPath: charts/kube-system
+            namespace: kube-system
+---
+
+apiVersion: skaffold/v2beta27
+kind: Config
+metadata:
+  name: chaos-testing
+profiles:
+  - name: local
+    activation:
+      - kubeContext: minikube
+    deploy:
+      helm:
+        releases:
+          - name: chaos-testing
+            chartPath: charts/chaos-testing
+            namespace: chaos-testing
+            createNamespace: true
+---
+
+apiVersion: skaffold/v2beta27
 kind: Config
 metadata:
   name: jenkins
@@ -7,17 +40,20 @@ profiles:
     activation:
       - kubeContext: minikube
     build:
+      tagPolicy:
+        sha256: {}
       artifacts:
-      - image: johnnyhuy/jenkins
-        context: .
-        docker:
-          dockerfile: Dockerfile
+        - image: johnnyhuy/jenkins
+          context: apps/jenkins
+          docker:
+            dockerfile: Dockerfile
     deploy:
-      kustomize:
-        paths:
-          - overlays/local
-    portForward:
-      - resourceType: service
-        resourceName: jenkins
-        namespace: default
-        port: 8080
+      helm:
+        releases:
+          - name: jenkins
+            chartPath: charts/jenkins
+            namespace: default
+            artifactOverrides:
+              jenkins.controller.image: johnnyhuy/jenkins
+            imageStrategy:
+              helm: {}

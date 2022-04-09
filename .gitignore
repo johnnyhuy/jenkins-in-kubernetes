@@ -1,1 +1,10 @@
+charts/**/charts
 output*
+tmpcharts
+.DS_Store
+*.pem
+*.crt
+.idea/
+node_modules
+package-lock.json
+*.log

@@ -71,11 +71,8 @@ spec:
             - containerPort: 50000
           resources:
             limits:
-              cpu: '3'
-              memory: 2Gi
-            requests:
               cpu: '2'
-              memory: 1.5Gi
+              memory: 2Gi
           env:
             - name: MEMORY_LIMITS
               valueFrom:

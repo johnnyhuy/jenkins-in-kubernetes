@@ -1,0 +1,10 @@
+minikube:
+  enabled: false
+
+kubeinvaders:
+  ingress:
+    enabled: false
+  route_host: localhost
+  service:
+    port: 8090
+  target_namespace: default,kube-system
