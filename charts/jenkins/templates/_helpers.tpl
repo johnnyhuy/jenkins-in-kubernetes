@@ -1,22 +1,9 @@
 {{/*
-Returns the Jenkins URL
+Return key value environment variables set on Jenkins
 */}}
-{{- define "jenkins.url" -}}
-{{- if .Values.jenkins.controller.jenkinsUrl }}
-  {{- .Values.jenkins.controller.jenkinsUrl }}
-{{- else }}
-  {{- if .Values.jenkins.controller.ingress.hostName }}
-    {{- if .Values.jenkins.controller.ingress.tls }}
-      {{- default "https" .Values.jenkins.controller.jenkinsUrlProtocol }}://{{ .Values.jenkins.controller.ingress.hostName }}{{ default "" .Values.jenkins.controller.jenkinsUriPrefix }}
-    {{- else }}
-      {{- default "http" .Values.jenkins.controller.jenkinsUrlProtocol }}://{{ .Values.jenkins.controller.ingress.hostName }}{{ default "" .Values.jenkins.controller.jenkinsUriPrefix }}
-    {{- end }}
-  {{- else }}
-      {{- default "http" .Values.jenkins.controller.jenkinsUrlProtocol }}://{{ template "jenkins.fullname" . }}:{{.Values.jenkins.controller.servicePort}}{{ default "" .Values.jenkins.controller.jenkinsUriPrefix }}
-  {{- end}}
-{{- end}}
-{{- end -}}
-
+{{ define "jenkins.env-vars" }}
+{{ .Values.jenkins.env }}
+{{ end }}
 {{/*
 Returns kubernetes pod template configuration as code
 */}}
@@ -133,21 +120,6 @@ Returns configuration as code config
 */}}
 {{- define "jenkins.casc.config" -}}
 jenkins:
-  {{- $configScripts := toYaml .Values.jenkins.controller.JCasC.configScripts }}
-  disableRememberMe: {{ .Values.jenkins.controller.disableRememberMe }}
-  mode: {{ .Values.jenkins.controller.executorMode }}
-  numExecutors: {{ .Values.jenkins.controller.numExecutors }}
-  {{- if not (kindIs "invalid" .Values.jenkins.controller.customJenkinsLabels) }}
-  labelString: "{{ join " " .Values.jenkins.controller.customJenkinsLabels }}"
-  {{- end }}
-  projectNamingStrategy: "standard"
-  markupFormatter:
-    {{- if .Values.jenkins.controller.enableRawHtmlMarkupFormatter }}
-    rawHtml:
-      disableSyntaxHighlighting: true
-    {{- else }}
-    {{- toYaml .Values.jenkins.controller.markupFormatter | nindent 4 }}
-    {{- end }}
   clouds:
   - kubernetes:
       containerCapStr: "{{ .Values.jenkins.agent.containerCap }}"
@@ -201,25 +173,4 @@ jenkins:
         {{- end }}
       {{- end }}
       {{- end }}
-  {{- if .Values.jenkins.controller.csrf.defaultCrumbIssuer.enabled }}
-  crumbIssuer:
-    standard:
-      excludeClientIPFromCrumb: {{ if .Values.jenkins.controller.csrf.defaultCrumbIssuer.proxyCompatability }}true{{ else }}false{{- end }}
-  {{- end }}
-security:
-  apiToken:
-    creationOfLegacyTokenEnabled: false
-    tokenGenerationOnCreationEnabled: false
-    usageStatisticsEnabled: true
-{{- if .Values.jenkins.controller.scriptApproval }}
-  scriptApproval:
-    approvedSignatures:
-{{- range $key, $val := .Values.jenkins.controller.scriptApproval }}
-    - "{{ $val }}"
-{{- end }}
-{{- end }}
-unclassified:
-  location:
-    adminAddress: {{ default "" .Values.jenkins.controller.jenkinsAdminEmail }}
-    url: {{ template "jenkins.url" . }}
 {{- end -}}

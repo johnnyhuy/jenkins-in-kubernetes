@@ -3,15 +3,12 @@ minikube:
 
 jenkins:
   controller:
-    sidecars:
-      configAutoReload:
-        enabled: true
     containerEnv:
       - name: PUBLIC_JENKINS_URL
         value: "http://localhost:8080"
       - name: PRIVATE_JENKINS_URL
         value: "http://jenkins.jenkins.svc.cluster.local:8080"
-  cascConfig:
+  config:
     jenkins:
       disableRememberMe: false
       mode: NORMAL
@@ -45,7 +42,7 @@ jenkins:
                 envVars:
                   - envVar:
                       key: "JENKINS_URL"
-                      value: "http://${PRIVATE_JENKINS_URL}:8080/"
+                      value: "$PRIVATE_JENKINS_URL}/"
                 image: "jenkins/inbound-agent:4.11.2-4"
                 privileged: "false"
                 resourceLimitCpu: 512m
@@ -72,7 +69,7 @@ jenkins:
                 envVars:
                   - envVar:
                       key: "JENKINS_URL"
-                      value: "http://${PRIVATE_JENKINS_URL}:8080/"
+                      value: "${PRIVATE_JENKINS_URL}/"
                 image: "johnnyhuy/jenkins-gradle:latest"
                 privileged: "false"
                 resourceLimitCpu: 512m
@@ -99,7 +96,7 @@ jenkins:
                 envVars:
                   - envVar:
                       key: "JENKINS_URL"
-                      value: "http://${PRIVATE_JENKINS_URL}:8080/"
+                      value: "${PRIVATE_JENKINS_URL}/"
                 image: "johnnyhuy/jenkins-node:latest"
                 privileged: "false"
                 resourceLimitCpu: 512m

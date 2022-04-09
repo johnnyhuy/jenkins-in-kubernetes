@@ -2,25 +2,57 @@ minikube:
   enabled: false
 
 jenkins:
+  fullnameOverride: jenkins
+
   # Avoid debugging persistence issues, always start fresh from Config as Code
   persistence:
     enabled: false
 
   controller:
+    servicePort: 8080
+    targetPort: 8080
+
+    componentName: "jenkins-controller"
     imagePullPolicy: IfNotPresent
+
+    sidecars:
+      configAutoReload:
+        enabled: true
+
+    # Disable Kubernetes from installing plugins since we install plugins on the Jenkins image
+    # Recommended by the Jenkins team to build our own Jenkins image
+    # https://github.com/jenkinsci/helm-charts/tree/main/charts/jenkins#consider-using-a-custom-image
+    installPlugins: false
+  
+    prometheus:
+      enabled: true
+
     JCasC:
       # Disabling because they're using jenkins.controller.tag to check for SemVer
       # which breaks Skaffold tagging policies since we're tagging with latest and SHA digests
       # https://github.com/jenkinsci/helm-charts/blob/main/charts/jenkins/templates/_helpers.tpl#L118
       defaultConfig: false
-    
-    # Disable Kubernetes from installing plugins since we install plugins on the Jenkins image
-    # Recommended by the Jenkins team to build our own Jenkins image
-    # https://github.com/jenkinsci/helm-charts/tree/main/charts/jenkins#consider-using-a-custom-image
-    installLatestPlugins: false
-    installPlugins: false
-  
-  prometheus:
-    enabled: true
 
-  cascConfig: {}
+    # Jenkins environment variables
+    # Example:
+    #
+    # containerEnv:
+    #   - name: PUBLIC_JENKINS_URL
+    #     value: "http://localhost:8080"
+    #   - name: PRIVATE_JENKINS_URL
+    #     value: "http://jenkins.jenkins.svc.cluster.local:8080"
+    containerEnv: {}
+
+  # Jenkins Configuration as Code
+  # Example:
+  #
+  # config:
+  #   jenkins:
+  #     disableRememberMe: false
+  #     mode: NORMAL
+  #     numExecutors: 0
+  #     labelString: ""
+  #     projectNamingStrategy: "standard"
+  #     markupFormatter:
+  #       plainText
+  config: {}

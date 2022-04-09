@@ -7,4 +7,4 @@ metadata:
     jenkins-jenkins-config: "true"
 data:
   casc-config.yaml: |-
-    {{- tpl (toYaml .Values.jenkins.cascConfig) . | nindent 4 }}
+    {{- tpl (toYaml .Values.jenkins.config) . | nindent 4 }}
