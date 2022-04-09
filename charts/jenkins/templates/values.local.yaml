@@ -5,17 +5,7 @@ jenkins:
   controller:
     sidecars:
       configAutoReload:
-        enabled: false
-        folder: ~
-  persistence:
-    volumes:
-      - name: casc-config
-        configMap:
-          name: casc-config
-    mounts:
-      - mountPath: /usr/share/jenkins/ref/casc_configs
-        name: casc-config
-        readOnly: true
+        enabled: true
   cascConfig:
     jenkins:
       disableRememberMe: false
