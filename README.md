@@ -26,6 +26,8 @@ make tunnel
 ```
 
 Jenkins - [`localhost:8080`](http://localhost:8080)
+Grafana - [`localhost:3000`](http://localhost:3000)
+Prometheus - [`localhost:9090`](http://localhost:9090)
 
 ## Findings
 

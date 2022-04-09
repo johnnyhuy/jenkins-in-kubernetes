@@ -4,7 +4,7 @@ minikube:
 kube-prometheus-stack:
   fullnameOverride: prometheus
   alertmanager:
-    enabled: true
+    enabled: false
     alertmanagerSpec:
       fullnameOverride: alertmanager
 

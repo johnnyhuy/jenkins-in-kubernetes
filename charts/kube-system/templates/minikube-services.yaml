@@ -19,23 +19,6 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: minikube-prometheus-alertmanager
-  namespace: {{ .Release.Namespace }}
-spec:
-  ports:
-    - name: http-web
-      protocol: TCP
-      port: 9093
-      targetPort: 9093
-  selector:
-    alertmanager: prometheus-alertmanager
-    app.kubernetes.io/name: alertmanager
-  type: LoadBalancer
----
-
-apiVersion: v1
-kind: Service
-metadata:
   name: minikube-prometheus-prometheus
   namespace: {{ .Release.Namespace }}
 spec:
