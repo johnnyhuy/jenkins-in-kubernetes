@@ -9,7 +9,9 @@
     </a>
     <h3 align="center">Jenkins</h3>
     <p align="center">
-    🤵🏼‍♂️ Jenkins on Kubernetes powered by Minikube. But examples here can apply beyond local cluster tools.
+    🤵🏼‍♂️ Jenkins on Kubernetes powered by Minikube
+    <br />
+    Examples here can apply beyond local cluster tools
     <br />
     <br />
     <a href="#getting-started">Getting Started</a>
@@ -23,6 +25,9 @@
 
 ## Background
 
+This project serves as a good baseline to build CI/CD environments.
+
+We dive into building Jenkins on Kubernetes. This includes tinkering with the Configuration as Code Jenkins plugin to configure Jenkins controller and agents.
 
 ### Built With
 
