@@ -25,22 +25,37 @@ jenkins:
     
     jobs:
       - script: >
-          folder('testjobs')
+          folder('Example Jobs')
       - script: >
-          pipelineJob('testjobs/default-agent') {
+          pipelineJob('Example Jobs/Default') {
             definition {
               cps {
                 script("""\
-                  pipeline {
-                    agent any
-                    stages {
-                      stage ('test') {
-                        steps {
-                          echo "hello"
-                        }
-                      }
-                    }
-                  }""".stripIndent())
+                node("default") {  
+                  sh 'java -version'
+                }""".stripIndent())
+              }
+            }
+          }
+      - script: >
+          pipelineJob('Example Jobs/Node') {
+            definition {
+              cps {
+                script("""\
+                node("node") {  
+                  sh 'node -v'
+                }""".stripIndent())
+              }
+            }
+          }
+      - script: >
+          pipelineJob('Example Jobs/Gradle') {
+            definition {
+              cps {
+                script("""\
+                node("gradle") {  
+                  sh 'gradle -version'
+                }""".stripIndent())
               }
             }
           }
