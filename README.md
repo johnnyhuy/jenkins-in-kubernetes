@@ -37,9 +37,11 @@ Prometheus - [`localhost:9090`](http://localhost:9090)
 
 An alternative to using imperative Groovy scripts to setup Jenkins. We can use declarative configuration through the the [configuration as code](https://github.com/jenkinsci/configuration-as-code-plugin) (CaC) Jenkins plugin.
 
-### How
+Configuration is controlled at the [Helm chart values](./charts/jenkins/values.yaml) where they get templated into [Kubernetes ConfigMaps](https://kubernetes.io/docs/concepts/configuration/configmap/). Jenkins has a sidecar that [auto-reloads](https://github.com/jenkinsci/helm-charts/tree/main/charts/jenkins#config-as-code-with-or-without-auto-reload) configuration upon each update (Helm chart release).
 
-Edit `jenkins.config` in Helm chart `values.yaml` files.
+### Jenkins configuration
+
+Edit `jenkins.config` in Helm chart [`values.yaml`](./charts/jenkins/values.yaml) files.
 
 ```yaml
 jenkins:
@@ -53,18 +55,65 @@ jenkins:
     unclassified:
       location:
         adminAddress: 
-        url: http://${JENKINS_URL}:8080
 ```
 
 To view **existing** Jenkins configuration, from Jenkins home, go to `Configuration as Code -> Documentation`
 
 We can also copy [examples](https://github.com/jenkinsci/configuration-as-code-plugin/tree/master/demos).
 
-#### Environment variables
+### Agents
+
+Jenkins agents can be added through CasC through Helm chart values files. Helm templates configuration 
+
+- [Agent plugin reference](https://plugins.jenkins.io/kubernetes/#plugin-content-pod-template)
+- [Example agent Docker images](https://github.com/jenkins-infra/docker-inbound-agents)
+
+[`values.yaml`](./charts/jenkins/values.yaml)
+
+```yaml
+jenkins:
+  agents:
+    default:
+      label: "default"
+      containers:
+      - name: "jnlp"
+        image: "jenkins/inbound-agent:4.11.2-4"
+    example-gradle-monogo:
+      label: "gradle"
+      containers:
+      - name: "jnlp"
+        image: "johnnyhuy/jenkins-gradle:latest"
+        privileged: true
+        envVars:
+          - envVar:
+              key: "EXAMPLE"
+              value: "foobar"
+      - name: "mongo"
+        image: "mongo:latest"
+        args: "^${computer.jnlpmac} ^${computer.name}"
+      idleMinutes: 0
+      instanceCap: 2147483647
+      label: default
+      nodeUsageMode: EXCLUSIVE
+      podRetention: Never
+      showRawYaml: true
+      serviceAccount: default
+      slaveConnectTimeoutStr: 100
+      yamlMergeStrategy: override
+    example-node-mysql:
+      label: "node"
+      containers:
+      - name: "jnlp"
+        image: "johnnyhuy/jenkins-node:latest"
+      - name: "mysql"
+        image: "mysql:latest"
+```
+
+### Environment variables
 
 We can plug in environment variables into CaC config. This is done with the `jenkins.env` Helm chart values.
 
-`values.yaml`
+[`values.yaml`](./charts/jenkins/values.yaml)
 
 ```yaml
 jenkins:
@@ -85,11 +134,11 @@ jenkins:
               secret: ${SPICY_SECRET}
 ```
 
-#### Secrets
+### Secrets
 
 Secrets can be loaded through Kubernetes secrets, by persisting CaC YAML configuration in secret. This file needs to be in the [`charts/jenkins/templates`](./charts/jenkins/templates) folder of the Jenkins helm chart. 
 
-We'll need to add the `jenkins-jenkins-config: "true"` label on the Kubernetes secret to allow Jenkins to auto reload.
+We'll need to add the `jenkins-jenkins-config: "true"` label on the Kubernetes secret to allow Jenkins to [auto-reload](https://github.com/jenkinsci/helm-charts/tree/main/charts/jenkins#config-as-code-with-or-without-auto-reload).
 
 `charts/jenkins/template/spicy-secret.yaml`
 
