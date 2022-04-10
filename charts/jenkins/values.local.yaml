@@ -54,7 +54,7 @@ jenkins:
               cps {
                 script("""\
                 node("gradle") {  
-                  sh 'gradle -version'
+                  sh 'java -version'
                 }""".stripIndent())
               }
             }
