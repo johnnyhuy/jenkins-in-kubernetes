@@ -31,6 +31,8 @@ We dive into building Jenkins on Kubernetes. This includes tinkering with the Co
 
 Better yet, all of this can be done from our **local machines** with [Minikube](https://minikube.sigs.k8s.io/docs/start/) to provide quicker feedback loops.
 
+![](./images/preview.gif)
+
 ### Built With
 
 Notable resources including, but not limited to:
