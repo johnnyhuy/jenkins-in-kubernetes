@@ -8,5 +8,7 @@ metadata:
 data:
   config.yaml: |-
     {{- toYaml .Values.jenkins.config | nindent 4 }}
+  jenkins-url.yaml: |-
+    {{- include "jenkins.casc.url" . | nindent 4 }}
   kubernetes.yaml: |-
     {{- include "jenkins.casc.kubernetes" . | nindent 4 }}

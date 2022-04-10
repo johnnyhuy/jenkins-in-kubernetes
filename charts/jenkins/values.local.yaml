@@ -23,7 +23,6 @@ jenkins:
     unclassified:
       location:
         adminAddress: 
-        url: $PUBLIC_JENKINS_URL
   agents:
     default:
       label: "default"

@@ -1,7 +1,24 @@
 {{/*
-Returns Kubernetes configuration as code
+Returns Jenkins configuration as code 
+wherever the Jenkins controller URL is required
+since source of truth is set in Helm chart values at `jenkins.controller.jenkinsUrl`
 
-e.g.
+jenkins:
+  ...
+unclassified:
+  ...
+  location:
+    url: https://example-jenkins.com:8080
+*/}}
+{{- define "jenkins.casc.url" -}}
+unclassified:
+  location:
+    adminAddress: 
+    url: {{ .Values.jenkins.controller.jenkinsUrl }}
+{{ end }}
+
+{{/*
+Returns Jenkins Kubernetes configuration as code
 
 jenkins:
   clouds:
