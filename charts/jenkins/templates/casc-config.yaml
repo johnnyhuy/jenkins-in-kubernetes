@@ -6,5 +6,7 @@ metadata:
   labels:
     jenkins-jenkins-config: "true"
 data:
-  casc-config.yaml: |-
-    {{- tpl (toYaml .Values.jenkins.config) . | nindent 4 }}
+  config.yaml: |-
+    {{- toYaml .Values.jenkins.config | nindent 4 }}
+  kubernetes.yaml: |-
+    {{- include "jenkins.casc.kubernetes" . | nindent 4 }}

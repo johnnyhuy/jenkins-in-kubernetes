@@ -1,5 +1,0 @@
-apiVersion: v2
-name: example-apps
-description: A handful of example applications for CI/CD testing
-type: application
-version: 1.0.0
