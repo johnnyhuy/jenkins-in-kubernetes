@@ -19,25 +19,6 @@ profiles:
 apiVersion: skaffold/v2beta27
 kind: Config
 metadata:
-  name: chaos-testing
-profiles:
-  - name: local
-    activation:
-      - kubeContext: minikube
-    deploy:
-      helm:
-        releases:
-          - name: chaos-testing
-            chartPath: charts/chaos-testing
-            namespace: chaos-testing
-            createNamespace: true
-            valuesFiles:
-              - charts/jenkins/values.local.yaml
----
-
-apiVersion: skaffold/v2beta27
-kind: Config
-metadata:
   name: jenkins
 profiles:
   - name: local
