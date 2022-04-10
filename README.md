@@ -1,6 +1,39 @@
-# Jenkins
+[![MIT License][license-shield]][license-url]
+[![LinkedIn][linkedin-shield]][linkedin-url]
 
-🤵🏼‍♂️ Jenkins on Kubernetes powered by Minikube. But examples here can apply beyond local cluster tools.
+<br />
+<div align="center">
+    <a href="https://github.com/johnnyhuy/jenkins">
+    <img src="https://raw.githubusercontent.com/kubernetes/kubernetes/master/logo/logo.svg" alt="Logo" width="80" height="80">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e9/Jenkins_logo.svg" alt="Logo" width="80" height="80">
+    </a>
+    <h3 align="center">Jenkins</h3>
+    <p align="center">
+    🤵🏼‍♂️ Jenkins on Kubernetes powered by Minikube. But examples here can apply beyond local cluster tools.
+    <br />
+    <br />
+    <a href="#getting-started">Getting Started</a>
+    <br />
+    <a href="#access">Access</a>
+    ·
+    <a href="#configuration-as-code">Configuration as Code</a>
+    <br />
+    <a href="#findings">Findings</a>
+</div>
+
+## Background
+
+
+### Built With
+
+Notable resources including, but not limited to:
+
+* [Jenkins Helm chart](https://github.com/jenkinsci/helm-charts)
+* [Jenkins Docker image](https://hub.docker.com/r/jenkins/jenkins)
+* [Jenkins inbound agents](https://github.com/jenkins-infra/docker-inbound-agents)
+* [Helm](https://helm.sh/)
+* [Skaffold](https://skaffold.dev/)
+
 
 ## Getting started
 
@@ -177,3 +210,17 @@ If we're using Jenkins on ARM systems like M1 Macs, it's recommended to use ARM6
 ## Where and what is JNLP?
 
 Java Network Launch Protocol aka JNLP is the protocol Jenkins agents historically use communicate between master and agent instances. JNLP has been deprecated in version 9+ of Java. Nowadays it's recommended to use either TCP or WebSockets as a replacement.
+
+[contributors-shield]: https://img.shields.io/github/contributors/johnnyhuy/jenkins.svg?style=for-the-badge
+[contributors-url]: https://github.com/johnnyhuy/jenkins/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/johnnyhuy/jenkins.svg?style=for-the-badge
+[forks-url]: https://github.com/johnnyhuy/jenkins/network/members
+[stars-shield]: https://img.shields.io/github/stars/johnnyhuy/jenkins.svg?style=for-the-badge
+[stars-url]: https://github.com/johnnyhuy/jenkins/stargazers
+[issues-shield]: https://img.shields.io/github/issues/johnnyhuy/jenkins.svg?style=for-the-badge
+[issues-url]: https://github.com/johnnyhuy/jenkins/issues
+[license-shield]: https://img.shields.io/github/license/johnnyhuy/jenkins.svg?style=for-the-badge
+[license-url]: https://github.com/johnnyhuy/jenkins/blob/master/LICENSE.txt
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://www.linkedin.com/in/johnnyhuy/
+[product-screenshot]: ./images/project-image.png
