@@ -3,6 +3,7 @@ minikube:
 
   
 jenkins:
+
   config:
     jenkins:
       disableRememberMe: false
@@ -15,14 +16,35 @@ jenkins:
       crumbIssuer:
         standard:
           excludeClientIPFromCrumb: true
+
     security:
       apiToken:
         creationOfLegacyTokenEnabled: false
         tokenGenerationOnCreationEnabled: false
         usageStatisticsEnabled: false
-    unclassified:
-      location:
-        adminAddress: 
+    
+    jobs:
+      - script: >
+          folder('testjobs')
+      - script: >
+          pipelineJob('testjobs/default-agent') {
+            definition {
+              cps {
+                script("""\
+                  pipeline {
+                    agent any
+                    stages {
+                      stage ('test') {
+                        steps {
+                          echo "hello"
+                        }
+                      }
+                    }
+                  }""".stripIndent())
+              }
+            }
+          }
+
   agents:
     default:
       label: "default"

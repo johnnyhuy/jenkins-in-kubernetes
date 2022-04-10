@@ -1,0 +1,13 @@
+{{ if .Values.minikube.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: minikube-kubedoom
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 5900
+      protocol: TCP
+  selector:
+    app: kubedoom
+{{ end }}

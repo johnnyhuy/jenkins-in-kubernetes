@@ -4,7 +4,7 @@ minikube:
 kubeinvaders:
   ingress:
     enabled: false
-  route_host: localhost
+  route_host: localhost:8090
   service:
     port: 8090
-  target_namespace: default,kube-system
+  target_namespace: default,jenkins,kube-system

@@ -3,3 +3,4 @@ workflow-aggregator:2.6
 git:4.10.2
 configuration-as-code:1414.v878271fc496f
 prometheus:2.0.11
+job-dsl:1.78.3

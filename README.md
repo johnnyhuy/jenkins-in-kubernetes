@@ -4,8 +4,8 @@
 <br />
 <div align="center">
     <a href="https://github.com/johnnyhuy/jenkins">
-    <img src="https://raw.githubusercontent.com/kubernetes/kubernetes/master/logo/logo.svg" alt="Logo" width="80" height="80">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e9/Jenkins_logo.svg" alt="Logo" width="80" height="80">
+    <img src="https://raw.githubusercontent.com/kubernetes/kubernetes/master/logo/logo.svg" alt="Kubernetes" height="80">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e9/Jenkins_logo.svg" alt="Jenkins" height="80">
     </a>
     <h3 align="center">Jenkins</h3>
     <p align="center">
@@ -25,14 +25,17 @@
 
 ## Background
 
-This project serves as a good baseline to build CI/CD environments.
+This project serves as a good *baseline* to build CI/CD environments with Jenkins.
 
 We dive into building Jenkins on Kubernetes. This includes tinkering with the Configuration as Code Jenkins plugin to configure Jenkins controller and agents.
+
+Better yet, all of this can be done from our **local machines** with [Minikube](https://minikube.sigs.k8s.io/docs/start/) to provide quicker feedback loops.
 
 ### Built With
 
 Notable resources including, but not limited to:
 
+* [Minikube](https://minikube.sigs.k8s.io/docs/start/)
 * [Jenkins Helm chart](https://github.com/jenkinsci/helm-charts)
 * [Jenkins Docker image](https://hub.docker.com/r/jenkins/jenkins)
 * [Jenkins inbound agents](https://github.com/jenkins-infra/docker-inbound-agents)
@@ -42,11 +45,23 @@ Notable resources including, but not limited to:
 
 ## Getting started
 
+Create a batteries included Jenkins environment.
+
+- 🤵🏼‍♂️ Jenkins controller
+- 🕶 Jenkins agents
+  - Node
+  - Gradle
+- 👀 Monitoring
+  - Grafana
+  - Prometheus
+  - Kube state metrics
+  - Metrics server
+
 ```bash
 # Install a required tooling
 brew bundle
 
-# Startup Kubernetes cluster
+# Startup Kubernetes cluster - requires at least 5 GB, 2 CPUs reserved on Docker
 make local-cluster
 
 # Deploy everything and watch for changes
@@ -58,16 +73,17 @@ make deploy
 
 ### Access
 
+Create a Minikube tunnel since we've exposed ports to certain services
+
 ```bash
-# Create a Minikube tunnel since we've exposed ports to certain services
 make tunnel
 ```
 
-Jenkins - [`localhost:8080`](http://localhost:8080)
+[Jenkins - `localhost:8080`](http://localhost:8080)
 
-Grafana - [`localhost:3000`](http://localhost:3000)
+[Grafana - `localhost:3000`](http://localhost:3000) - [Jenkins dashboard](http://localhost:3000/d/haryan-jenkins/jenkins-performance-and-health-overview?orgId=1)
 
-Prometheus - [`localhost:9090`](http://localhost:9090)
+[Prometheus - `localhost:9090`](http://localhost:9090)
 
 ## Configuration as Code
 

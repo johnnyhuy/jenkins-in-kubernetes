@@ -13,6 +13,26 @@ kube-prometheus-stack:
     fullnameOverride: grafana
     serviceMonitor:
       enabled: false
+    env:
+      GF_AUTH_ANONYMOUS_ENABLED: true
+    dashboardProviders:
+      dashboardproviders.yaml:
+        apiVersion: 1
+        providers:
+          - name: 'default'
+            orgId: 1
+            folder: ''
+            type: file
+            disableDeletion: false
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/default
+    dashboards:
+      default:
+        jenkins:
+          gnetId: 9964
+          revision: 1
+          datasource: Prometheus
 
   kubeApiServer:
     enabled: false

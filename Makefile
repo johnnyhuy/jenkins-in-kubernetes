@@ -1,7 +1,7 @@
 ENV ?= local
 
 local-cluster:
-	minikube start --memory 7936m --cpus 3 --apiserver-names=host.docker.internal
+	minikube start --memory 5140m --cpus 2 --apiserver-names=host.docker.internal
 
 helm-repo-add:
 	./bin/helm-repo-add.sh
