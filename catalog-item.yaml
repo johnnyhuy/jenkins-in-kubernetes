@@ -1,0 +1,14 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: jenkins-in-kubernetes
+  title: Jenkins in Kubernetes
+  description: Jenkins in Kubernetes is a Jenkins server running in a Kubernetes cluster
+  tags:
+    - ci-cd
+    - jenkins
+    - kubernetes
+spec:
+  type: service
+  lifecycle: experimental
+  owner: johnnyhuy
